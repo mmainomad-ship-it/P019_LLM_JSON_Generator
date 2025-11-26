@@ -5,7 +5,7 @@ import ollama  # Library to interact with local LLM
 # Step 2: Define model and prompt
 MODEL = "llama3"  # Using local Llama 3 model
 # Explicitly instruct the model to return ONLY JSON with specific fields
-PROMPT_TEXT = "Generate 5 fictional user profiles. Return ONLY valid JSON with a 'users' array. Keys: id (int), username (str), email (str), is_active (bool)."
+PROMPT_TEXT = "Generate 10 fictional user profiles. Return ONLY valid JSON with a 'users' array. Keys: id (int), username (str), email (str), is_active (bool)."
 
 
 # Step 3: Define the function header
@@ -29,3 +29,8 @@ if __name__ == "__main__":
     print(f"\nSuccessfully parsed {len(data['users'])} users:")
     for user in data["users"]:
         print(f"- {user['username']} ({user['email']}) | Active: {user['is_active']}")
+
+    # Step 6: Save the data to a JSON file
+    with open("users.json", "w") as f:
+        json.dump(data, f, indent=4)  # indent=4 makes it pretty and readable
+    print("Data successfully saved to 'users.json'")
